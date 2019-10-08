@@ -1,0 +1,26 @@
+<ion-content>
+  <div class="row">
+    <div class="col s4 offset-s4" [formGroup]="loginForm">
+      <div class="card-panel">
+        <div class="row">
+          <div class="col s12 center-align">
+            <h5>Access panel</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 center-align">
+            <input formControlName="email" type="text" placeholder="example@domain.do">
+          </div>
+          <div class="col s12 center-align">
+            <input formControlName="password" type="password" placeholder="******">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <button class="btn btn-block col s12" [disabled]="!loginForm.valid" (click)="login()">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

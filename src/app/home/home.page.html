@@ -1,0 +1,42 @@
+<ion-content>
+
+  <div class="container">
+    <h5 class="center-align col s12 text-accent-1">Thoughts Journal</h5>
+
+   <!-- Toughts text area -->
+    <div class="row">
+      <div class="card-panel">
+
+        <div class="row">
+          <div class="input-field col s12" [formGroup]="thoughtsForm">
+            <textarea id="textareatoughts" formControlName="thoughtText" class="materialize-textarea"></textarea>
+            <label for="textareatoughts">Write just what are you thinking...</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12 center-align">
+            <button class="btn-block btn col s12" [disabled]="!thoughtsForm.valid" (click)="publishThought()">Post</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <a class="col s12" href="#">See what you been thinking</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row" *ngIf="thoughtsList.length > 0">
+        <h5 class="center-align">Latest thoughts...</h5>
+        <div class="collection" *ngFor="let item of thoughtsList">
+            <div class="collection-item">
+              <h6 class="truncate">{{ item.thought }}<a href="" class="secondary-content">See more...</a></h6>
+            </div>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
+
