@@ -1,10 +1,9 @@
 <ion-content>
 
   <div class="container">
-    <h5 class="center-align col s12 text-accent-1">Thoughts Journal</h5>
-
    <!-- Toughts text area -->
     <div class="row">
+      <h5 class="center-align col s12 text-accent-1">Thoughts Journal</h5>
       <div class="card-panel">
 
         <div class="row">
@@ -27,7 +26,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="thoughtsList.length > 0">
+    <div class="row" *ngIf="thoughtsList.length > (thoughtsList.length - thoughtsList.length)">
         <h5 class="center-align">Latest thoughts...</h5>
         <div class="collection" *ngFor="let item of thoughtsList">
             <div class="collection-item">

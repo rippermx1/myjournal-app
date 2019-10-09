@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AuthService } from "../../../services/auth.service";
-import { AlertService } from "../../../services/alert.service";
-import { NavController } from "@ionic/angular";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
+import { AlertService } from '../../../services/alert.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +19,12 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.initForms();
+    if ( this.authService.isLoggedIn ) {
+      this.navController.navigateRoot('/home');
+    }
+  }
+  initForms() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
       password: ['', Validators.required]
@@ -29,7 +35,7 @@ export class LoginPage implements OnInit {
     const password = this.loginForm.get('password').value;
     this.authService.login(email, password).subscribe(
         data => {
-          this.alertService.presentToast("Logged in");
+          this.alertService.presentToast('Logged in');
         },
         error => {
           console.log(error);

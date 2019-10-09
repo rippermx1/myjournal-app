@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup , FormBuilder , Validators } from '@angular/forms';
 import { IThought } from '../models/thought.interface';
-import { AuthService } from "../services/auth.service";
-import { AlertService } from "../services/alert.service";
-import { NavController } from "@ionic/angular";
+import { AuthService } from '../services/auth.service';
+import { AlertService } from '../services/alert.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -37,13 +37,14 @@ export class HomePage {
   logout() {
     this.authService.logout().subscribe(
         data => {
-          this.alertService.presentToast(data['message']);
+          // @ts-ignore
+          this.alertService.presentToast(data.message);
         },
         error => {
           console.log(error);
         },
         () => {
-          this.navController.navigateRoot('/login');
+          this.navController.navigateRoot(['login']);
         }
     );
   }
