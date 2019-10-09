@@ -41,7 +41,21 @@ export class LoginPage implements OnInit {
           console.log(error);
         },
         () => {
+          this.setUserSessionData();
           this.navController.navigateRoot('/home');
+        }
+    );
+  }
+  setUserSessionData() {
+    this.authService.user().subscribe(
+        data => {
+          sessionStorage.setItem('user', JSON.stringify(data.user));
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          console.log('Profile loaded');
         }
     );
   }

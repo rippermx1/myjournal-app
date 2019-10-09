@@ -19,8 +19,8 @@
           </div>
         </div>
 
-        <div class="row">
-          <a class="col s12" href="#">See what you been thinking</a>
+        <div class="row" *ngIf="user">
+          <a class="col s12" href="#">{{ user.name }}, see what you been thinking</a>
         </div>
 
       </div>
