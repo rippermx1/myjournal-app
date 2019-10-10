@@ -47,12 +47,13 @@ export class AuthService {
       return this.http.post(`${this.env.API_URL}/logout`, null, { headers : this.headers} )
         .pipe(tap(data => {
             localStorage.removeItem('token');
+            sessionStorage.removeItem(('user'));
             this.isLoggedIn = false;
             return data;
         }));
   }
 
-  user() {
+  profile() {
       this.setAuthorizationHeader();
       return this.http.post<User>(`${this.env.API_URL}/profile`, null, { headers: this.headers })
         .pipe(
@@ -63,7 +64,7 @@ export class AuthService {
   }
 
   validateSession() {
-    const session = JSON.parse(localStorage.getItem('token')) as IToken;
+    const session = this.getToken();
     if ( session == null) {
         this.isLoggedIn = false;
     } else if (session.token != null) {
@@ -77,6 +78,13 @@ export class AuthService {
       const token = JSON.parse(localStorage.getItem('token')) as IToken;
       if ( token != null ) {
           return token;
+      }
+  }
+
+  getSessionUser() {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      if ( user != null ) {
+          return user;
       }
   }
 

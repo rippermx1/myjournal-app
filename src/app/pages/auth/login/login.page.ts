@@ -35,27 +35,26 @@ export class LoginPage implements OnInit {
     const password = this.loginForm.get('password').value;
     this.authService.login(email, password).subscribe(
         data => {
+          console.log('Loging');
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          this.authService.profile().subscribe(
+              resp => {
+                sessionStorage.setItem('user', JSON.stringify(resp.user));
+              },
+              error => {
+                console.log(error);
+              },
+              () => {
+                console.log('Profile loaded');
+                this.navController.navigateRoot('/home');
+              }
+          );
           this.alertService.presentToast('Logged in');
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
-          this.setUserSessionData();
-          this.navController.navigateRoot('/home');
-        }
-    );
-  }
-  setUserSessionData() {
-    this.authService.user().subscribe(
-        data => {
-          sessionStorage.setItem('user', JSON.stringify(data.user));
-        },
-        error => {
-          console.log(error);
-        },
-        () => {
-          console.log('Profile loaded');
+          console.log('Login complete');
         }
     );
   }

@@ -4,7 +4,6 @@ import { IThought } from '../models/thought.interface';
 import { AuthService } from '../services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { NavController } from '@ionic/angular';
-import {User} from '../models/user';
 
 @Component({
   selector: 'app-home',
@@ -23,8 +22,7 @@ export class HomePage implements OnInit {
   ) {}
   ngOnInit() {
     this.initForms();
-    this.user = JSON.parse(sessionStorage.getItem('user')) as User;
-    console.log(this.user);
+    this.user = this.authService.getSessionUser();
   }
 
   initForms() {
