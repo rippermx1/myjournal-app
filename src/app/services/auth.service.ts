@@ -11,22 +11,22 @@ import {IToken} from '../models/token.interface';
 export class AuthService {
   isLoggedIn = false;
   token: IToken;
-  private headers: HttpHeaders;
+  // private headers: HttpHeaders;
 
   constructor(
       private http: HttpClient,
-      private env: EnvService
+      private envService: EnvService
   ) {  }
 
-  private setAuthorizationHeader() {
+  /*private setAuthorizationHeader() {
       this.token = this.getToken() || null;
       this.headers = new HttpHeaders({
           Authorization: `${this.token.token_type} ${this.token.token}`
       });
 
-  }
+  }*/
   login(email: string, password: string) {
-    return this.http.post(`${this.env.API_URL}/login`,
+    return this.http.post(`${this.envService.API_URL}/login`,
         { email, password }
         ).pipe(
           tap( token => {
@@ -38,13 +38,13 @@ export class AuthService {
   }
 
   register(name: string, email: string, password: string, passwordCofirmed: string) {
-    return this.http.post(`${this.env.API_URL}/register`,
+    return this.http.post(`${this.envService.API_URL}/register`,
         {name, email, password, password_confirmed: passwordCofirmed});
   }
 
   logout() {
-      this.setAuthorizationHeader();
-      return this.http.post(`${this.env.API_URL}/logout`, null, { headers : this.headers} )
+      // this.setAuthorizationHeader();
+      return this.http.post(`${this.envService.API_URL}/logout`, null/*, { headers : this.headers}*/ )
         .pipe(tap(data => {
             localStorage.removeItem('token');
             sessionStorage.removeItem(('user'));
@@ -54,8 +54,8 @@ export class AuthService {
   }
 
   profile() {
-      this.setAuthorizationHeader();
-      return this.http.post<User>(`${this.env.API_URL}/profile`, null, { headers: this.headers })
+      // this.setAuthorizationHeader();
+      return this.http.post<User>(`${this.envService.API_URL}/profile`, null/*, { headers: this.headers }*/)
         .pipe(
             tap(user => {
                 return user;
@@ -82,7 +82,7 @@ export class AuthService {
   }
 
   getSessionUser() {
-      const user = JSON.parse(sessionStorage.getItem('user'));
+      const user = JSON.parse(sessionStorage.getItem('user')) as User;
       if ( user != null ) {
           return user;
       }

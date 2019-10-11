@@ -3,13 +3,13 @@
   <div class="container">
    <!-- Toughts text area -->
     <div class="row">
-        <h5 class="center-align col s12 text-accent-1">Thoughts Journal</h5>
+        <h5 class="center-align col s12 text-accent-1">{{ user.name | titlecase}}'s thought journal</h5>
         <h6 class="center-align col s12" (click)="logout()">Logout</h6>
       <div class="card-panel">
 
         <div class="row">
           <div class="input-field col s12" [formGroup]="thoughtsForm">
-            <textarea id="textareatoughts" formControlName="thoughtText" class="materialize-textarea"></textarea>
+            <textarea id="textareatoughts" formControlName="content" class="materialize-textarea"></textarea>
             <label for="textareatoughts">Write just what are you thinking...</label>
           </div>
         </div>
@@ -21,7 +21,7 @@
         </div>
 
         <div class="row" *ngIf="user">
-          <a class="col s12" href="#">Hi {{ user.name | titlecase}}, see what you been thinking</a>
+          <a class="col s12" href="#">Hi, do you want to see what you been thinking?</a>
         </div>
 
       </div>
